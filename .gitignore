@@ -1,6 +1,12 @@
-node_modules/
-bower_components/
-*.log
+.idea/
+css/
+font-awesome-4.1.0/
+fonts/
+js/plugins/
+less/
 
-build/
-dist/
+js/bootstrap.js
+js/bootstrap.min.js
+js/echarts-all.js
+js/sb-admin-2.js
+js/jquery.js

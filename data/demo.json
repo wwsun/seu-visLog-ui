@@ -1,0 +1,56 @@
+{
+  "nodes": [
+    {
+      "category": 0,
+      "name": "www.made-in-china.com",
+      "value": 10,
+      "label": "首页\n(主要)"
+    },
+    {
+      "category": 1,
+      "name": "www.made-in-china.com/search/",
+      "value": 2
+    },
+    {
+      "category": 1,
+      "name": "www.made-in-china.com/comp/",
+      "value": 3
+    },
+    {
+      "category": 1,
+      "name": "www.made-in-china.com/ad/",
+      "value": 3
+    },
+    {
+      "category": 2,
+      "name": "www.google.com",
+      "value": 5
+    }
+  ],
+  "links": [
+    {
+      "source": "www.made-in-china.com/search/",
+      "target": "www.made-in-china.com",
+      "weight": 1,
+      "name": "站内"
+    },
+    {
+      "source": "www.made-in-china.com/comp/",
+      "target": "www.made-in-china.com",
+      "weight": 2,
+      "name": "站内"
+    },
+    {
+      "source": "www.made-in-china.com/ad/",
+      "target": "www.made-in-china.com",
+      "weight": 1,
+      "name": "站内"
+    },
+    {
+      "source": "www.google.com",
+      "target": "www.made-in-china.com",
+      "weight": 5,
+      "name": "站外"
+    }
+  ]
+}
