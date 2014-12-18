@@ -102,14 +102,15 @@
                         <!-- /input-group -->
                     </li>
                     <li>
-                        <a class="active" href="index.html"><i class="fa fa-dashboard fa-fw"></i> Overview</a>
+                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Overview</a>
                     </li>
 
-                    <li>
-                        <a href="#"><i class="fa fa-sitemap fa-fw"></i> Link Analysis<span class="fa arrow"></span></a>
+                    <li class="active">
+                        <a href="index.html"><i class="fa fa-sitemap fa-fw"></i> Link Analysis<span
+                                class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="#">整站链接分析</a>
+                                <a href="link.html" class="active">整站链接分析</a>
                             </li>
                             <li>
                                 <a href="#">站外链接分析</a>
@@ -232,7 +233,7 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="panel panel-primary">
-                        <div class="panel-heading">核心子图</div>
+                        <div class="panel-heading">Subgraph</div>
                         <div class="panel-body child-panel" id="path-detail">
                         </div>
                     </div>
@@ -240,26 +241,62 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="panel panel-info">
-                        <div class="panel-heading">跳入\跳出</div>
-                        <div class="panel-body child-panel" id="jumping">
-                        </div>
+                        <div class="panel-heading">Context</div>
+                            <table class="table table-bordered">
+                                <tbody>
+                                <tr>
+                                    <td><strong>Nodes</strong></td>
+                                    <td>20</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Links</strong></td>
+                                    <td>30</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Type</strong></td>
+                                    <td>Directed</td>
+                                </tr>
+                                </tbody>
+                            </table>
                     </div>
                     <!-- dataset overview -->
+
+                    <div id="degree-pie">
+                        <!--inDegree and outDegree-->
+                    </div>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-lg-6">
                     <div class="panel panel-info">
-                        <div class="panel-heading">最近七天的访问趋势</div>
-                        <div class="panel-body child-panel" id="click-flow">
+                        <div class="panel-heading">Visited trends of the least 12 hours</div>
+                        <div class="panel-body child-panel" id="visit-flow">
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="panel panel-info">
-                        <div class="panel-heading">主要跳入点</div>
+                        <div class="panel-heading">Main Sources</div>
                         <div class="panel-body child-panel" id="landing-source">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">Main referrals of the selected node</div>
+                        <div class="panel-body child-panel" id="node-referrals">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">Main targets of the selected node</div>
+                        <div class="panel-body child-panel" id="node-targets">
                         </div>
                     </div>
                 </div>
@@ -287,6 +324,9 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="js/sb-admin-2.js"></script>
+
+<!--HightCharts JavaScript-->
+<script type="text/javascript" src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
 
 <script src="js/pages/link.js"></script>
 

@@ -109,7 +109,7 @@
                         <a href="#"><i class="fa fa-sitemap fa-fw"></i> Link Analysis<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="#">整站链接分析</a>
+                                <a href="link.html">整站链接分析</a>
                             </li>
                             <li>
                                 <a href="#">站外链接分析</a>
@@ -220,7 +220,9 @@
                     <div class="child-panel">
                         <div id="session-total">
                             <h3>Sessions</h3>
+
                             <h1>20</h1>
+
                             <p>当前处理的会话总数</p>
                         </div>
                     </div>
@@ -242,60 +244,48 @@
                 <div class="col-lg-4">
                     <div class="panel panel-info">
                         <div class="panel-heading">Top Referrals</div>
-                        <div class="panel-body child-panel">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Page</th>
-                                        <th>Dups</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
-                        </div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Page</th>
+                                <th>Dups</th>
+                            </tr>
+                            </thead>
+                            <tbody id="top-referrals"></tbody>
+                        </table>
                     </div>
                     <!-- 局部路径图 -->
                 </div>
                 <div class="col-lg-4">
                     <div class="panel panel-info">
-                        <div class="panel-heading">Top Search Engine Traffic </div>
-                        <div class="panel-body child-panel">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Search Engine</th>
-                                    <th>Contribution</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
-                        </div>
+                        <div class="panel-heading">Top Search Engine Traffic</div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Search Engine</th>
+                                <th>Contribution</th>
+                            </tr>
+                            </thead>
+                            <tbody id="top-engines"></tbody>
+                        </table>
                     </div>
                     <!-- dataset overview -->
                 </div>
                 <div class="col-lg-4">
                     <div class="panel panel-info">
                         <div class="panel-heading">Top Active Pages</div>
-                        <div class="panel-body child-panel">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Page</th>
-                                    <th>Active</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
-                        </div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Page</th>
+                                <th>Active</th>
+                            </tr>
+                            </thead>
+                            <tbody id="top-pages"></tbody>
+                        </table>
                     </div>
                     <!-- dataset overview -->
                 </div>
@@ -305,15 +295,41 @@
                 <div class="col-lg-6">
                     <div class="panel panel-info">
                         <div class="panel-heading">Top Keywords</div>
-                        <div class="panel-body child-panel">
+                        <div class="panel-body">
+                            <canvas id="word_cloud" height="350"></canvas>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="panel panel-info">
-                        <div class="panel-heading">Others</div>
-                        <div class="panel-body child-panel">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Area Chart Example
+                            <div class="pull-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                        Actions<span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        <li><a href="#">Language</a>
+                                        </li>
+                                        <li><a href="#">Country</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Browser</a>
+                                        </li>
+                                        <li><a href="#">Operating System</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="stastical-chart">
+                                content
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
                     </div>
                 </div>
             </div>
@@ -332,9 +348,12 @@
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 
-<!-- D3.js Core JavaScript -->
+<!-- Echarts Core JavaScript -->
 <script src="js/echarts-all.js"></script>
-<!---->
+
+<!-- Tag Cloud Core JavaScript-->
+<script src="js/wordcloud2.js"></script>
+
 <!-- Metis Menu Plugin JavaScript -->
 <script src="js/plugins/metisMenu/metisMenu.min.js"></script>
 

@@ -36,7 +36,6 @@ mainPage.option = {
         {
             name:'访问趋势',
             type:'line',
-            data:[22, 30, 5, 2, 11, 11, 15, 22, 12, 13, 10, 5],
             markPoint : {
                 data : [
                     {type : 'max', name: '最大值'},
@@ -52,4 +51,32 @@ mainPage.option = {
     ]
 };
 
-mainPage.myChart.setOption(mainPage.option);
+$.getJSON('./data/data-overview.json', function (json) {
+
+    $('#session-total h1').html(json.totalSessions);
+
+    setOverviewTable('#top-referrals', json.topReferral);
+    setOverviewTable('#top-engines', json.topSearchEngine);
+    setOverviewTable('#top-pages', json.topActivePages);
+    setKeywordCloud(json.topKeywords);
+
+    mainPage.option.series[0].data = json.sessionTrends;
+    mainPage.myChart.setOption(mainPage.option);
+
+});
+
+
+function setOverviewTable(tableBodyId, arr) {
+    var table = $(tableBodyId);
+    for(var i=0; i<arr.length; i++) {
+        table.append('<tr><td>'+i+'</td><td>'+arr[i].name+'</td><td>'+arr[i].dup+'</td></tr>');
+
+    }
+}
+
+function setKeywordCloud(arr) {
+    WordCloud(document.getElementById("word_cloud"),{
+        list: arr,
+        minSize: "1"
+    });
+}
