@@ -242,27 +242,74 @@
                 <div class="col-lg-4">
                     <div class="panel panel-info">
                         <div class="panel-heading">Context</div>
-                            <table class="table table-bordered">
-                                <tbody>
-                                <tr>
-                                    <td><strong>Nodes</strong></td>
-                                    <td>20</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Links</strong></td>
-                                    <td>30</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Type</strong></td>
-                                    <td>Directed</td>
-                                </tr>
-                                </tbody>
-                            </table>
+                        <table class="table table-bordered">
+                            <tbody>
+                            <tr>
+                                <td><strong>Nodes</strong></td>
+                                <td>20</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Links</strong></td>
+                                <td>30</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Type</strong></td>
+                                <td>Directed</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <!-- dataset overview -->
 
                     <div id="degree-pie">
                         <!--inDegree and outDegree-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">Main referrals of the selected node</div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>URL</th>
+                                <th>Dups</th>
+                            </tr>
+                            </thead>
+
+                            <tbody id="node-referrals">
+                                <tr>
+                                    <td>1</td>
+                                    <td>www.google.com</td>
+                                    <td>100</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">Main targets of the selected node</div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>URL</th>
+                                <th>Dups</th>
+                            </tr>
+                            </thead>
+                            <tbody id="node-targets">
+                                <tr>
+                                    <td>1</td>
+                                    <td>www.made-in-china.com</td>
+                                    <td>90</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -279,24 +326,6 @@
                     <div class="panel panel-info">
                         <div class="panel-heading">Main Sources</div>
                         <div class="panel-body child-panel" id="landing-source">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">Main referrals of the selected node</div>
-                        <div class="panel-body child-panel" id="node-referrals">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">Main targets of the selected node</div>
-                        <div class="panel-body child-panel" id="node-targets">
                         </div>
                     </div>
                 </div>
