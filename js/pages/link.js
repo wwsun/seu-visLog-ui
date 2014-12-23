@@ -289,12 +289,14 @@ function updateCharts (json) {
 
     //2.update main referrals
     var refs = json.topReferrals;
+    $('#node-referrals tr').remove(); //remove the old data
     for(var i=0; i< refs.length; i++) {
         $("#node-referrals").append('<tr><td>'+i+'</td><td>'+refs[i].name+'</td><td>'+refs[i].dup+'</td></tr>');
     }
 
     //3.update main targets
     var targets = json.topTargets;
+    $('#node-targets tr').remove(); //remove the old data
     for(var j=0; j<targets.length; j++) {
         $('#node-targets').append('<tr><td>'+j+'</td><td>'+targets[j].name+'</td><td>'+targets[j].dup+'</td></tr>');
     }

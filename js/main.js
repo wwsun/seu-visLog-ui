@@ -18,9 +18,8 @@ var mainPage = {
         calculable: true,
         xAxis: [
             {
-                type: 'category',
-                boundaryGap: false,
-                data: ['-11', '-10', '-9', '-8', '-7', '-6', '-5', '-3', '-2', '-1', '0']
+                type: 'hour',
+                boundaryGap: false
             }
         ],
         yAxis: [
@@ -33,7 +32,7 @@ var mainPage = {
         ],
         series: [
             {
-                name: '访问趋势',
+                name: 'sessions',
                 type: 'line',
                 markPoint: {
                     data: [
@@ -51,7 +50,7 @@ var mainPage = {
     }
 };
 
-$.getJSON('./data/data-overview.json', function (json) {
+$.getJSON('./data/site-overview.json', function (json) {
 
     $('#session-total h1').html(json.totalSessions);
 
@@ -59,8 +58,6 @@ $.getJSON('./data/data-overview.json', function (json) {
     setOverviewTable('#top-engines', json.topSearchEngine);
     setOverviewTable('#top-pages', json.topActivePages);
     setKeywordCloud(json.topKeywords);
-
-    //console.log(json.sessionCounts.time);
 
     mainPage.option.xAxis[0].data = json.sessionTrends.hour;
     mainPage.option.series[0].data = json.sessionTrends.dup;
