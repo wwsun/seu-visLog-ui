@@ -152,8 +152,8 @@ var linkPage = {
         calculable : true,
         xAxis : [
             {
-                type : 'category',
-                data : ['首页','产品目录A','产品目录B','搜索引擎','活动宣传','站内搜索']
+                type : 'category'
+                //data : ['首页','产品目录A','产品目录B','搜索引擎','活动宣传','站内搜索']
             }
         ],
         yAxis : [
@@ -165,7 +165,7 @@ var linkPage = {
             {
                 name:'页面来源',
                 type:'bar',
-                data:[100, 20, 10, 4, 60, 20, 30],
+                //data:[100, 20, 10, 4, 60, 20, 30],
                 markPoint : {
                     data : [
                         {type : 'max', name: '最大值'},
@@ -261,7 +261,6 @@ function focus(param) {
      */
     queryDB(data.name);
 
-
 }
 
 
@@ -305,7 +304,7 @@ function updateCharts (json) {
     linkPage.visitLineChart.setOption(linkPage.visitLineOption);
 
     //5.update main sources
-    linkPage.sourceCategoryChartOption.xAxis.data = json.sourceCategories.category;
+    linkPage.sourceCategoryChartOption.xAxis[0].data = json.sourceCategories.category;
     linkPage.sourceCategoryChartOption.series[0].data = json.sourceCategories.values;
     linkPage.sourceCategoryBarChart.setOption(linkPage.sourceCategoryChartOption);
 
