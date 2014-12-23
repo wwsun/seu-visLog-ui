@@ -19,7 +19,8 @@ var mainPage = {
         xAxis: [
             {
                 type: 'hour',
-                boundaryGap: false
+                boundaryGap: false,
+                data:[]
             }
         ],
         yAxis: [
@@ -34,6 +35,7 @@ var mainPage = {
             {
                 name: 'sessions',
                 type: 'line',
+                data: [],
                 markPoint: {
                     data: [
                         {type: 'max', name: '最大值'},
