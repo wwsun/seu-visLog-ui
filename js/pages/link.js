@@ -142,7 +142,12 @@ var linkPage = {
             data:['页面来源']
         },
         toolbox: {
-            show : false
+            show : true,
+            feature : {
+                restore : {
+                    show : true
+                }
+            }
         },
         calculable : true,
         xAxis : [
@@ -186,15 +191,13 @@ $.getJSON('./data/demo.json', function (json) {
 
     linkPage.overviewForceChart.setOption(linkPage.overviewForceOption);
     linkPage.subForceChart.setOption(linkPage.overviewForceOption);
-    linkPage.visitLineChart.setOption(linkPage.visitLineOption);
-    linkPage.sourceCategoryBarChart.setOption(linkPage.sourceCategoryChartOption);
-
-    setDegreePie();
+    //linkPage.visitLineChart.setOption(linkPage.visitLineOption);
+    //linkPage.sourceCategoryBarChart.setOption(linkPage.sourceCategoryChartOption);
 
     linkPage.subForceChart.on(echarts.config.EVENT.CLICK, focus);
 });
 
-function setDegreePie() {
+function setDegreePie(data) {
     $('#degree-pie').highcharts({
         chart: {
             plotBackgroundColor: null,
@@ -238,8 +241,8 @@ function setDegreePie() {
             name: 'Degree',
             innerSize: '50%',
             data: [
-                ['In',   45.0],
-                ['Out',  26.8]
+                ['In',   data.in],
+                ['Out',  data.out]
 
             ]
         }]
@@ -248,21 +251,62 @@ function setDegreePie() {
 
 function focus(param) {
     var data = param.data;
-    //var links = linkPage.subForceChartOption.series[0].links;
-    var nodes = linkPage.overviewForceOption.series[0].nodes;
-    if (
-        data.source !== undefined
-        && data.target !== undefined
-    ) {
-        var sourceNode = nodes[data.source];
-        var targetNode = nodes[data.target];
-        console.log("选中了边 " + sourceNode.name + ' -> ' + targetNode.name + ' (' + data.weight + ')');
-    } else {
-        console.log("选中了" + data.name + '(' + data.value + ')');
-    }
+    console.log("选中了" + data.name + '(' + data.value + ')');
+
+    /**
+     * update relevant tables and charts:
+     *  1.query(data.name) //query the node name from database
+     *  2.acquire the response data as JSON file
+     *  3.update all relevant tables and charts based on the parameter
+     */
+    queryDB(data.name);
+
+
 }
 
-//myChart.on(echarts.config.EVENT.CLICK, focus);
-//myChart.on(echarts.config.EVENT.FORCE_LAYOUT_END, function () {
-//    console.log(myChart.chart.force.getPosition());
-//});
+
+/**
+ *
+ * @param name - the name of your selected node
+ */
+function queryDB(name) {
+
+    //operation logic to query the database
+
+    //processing the response result
+    $.getJSON('./data/node-detail.json', function (json) {
+        if(json[name]) {
+            updateCharts(json[name]);
+        } else {
+            alert("Unfortunately, nothing returned about this node!");
+        }
+
+    });
+}
+
+function updateCharts (json) {
+    //1.update degrees
+    //setDegreePie(json.degree);
+
+    //2.update main referrals
+    var refs = json.topReferrals;
+    for(var i=0; i< refs.length; i++) {
+        $("#node-referrals").append('<tr><td>'+i+'</td><td>'+refs[i].name+'</td><td>'+refs[i].dup+'</td></tr>');
+    }
+
+    //3.update main targets
+    var targets = json.topTargets;
+    for(var j=0; j<targets.length; j++) {
+        $('#node-targets').append('<tr><td>'+j+'</td><td>'+targets[j].name+'</td><td>'+targets[j].dup+'</td></tr>');
+    }
+
+    //4.update visited trends
+    linkPage.visitLineOption.series[0].data = json.visitTrend;
+    linkPage.visitLineChart.setOption(linkPage.visitLineOption);
+
+    //5.update main sources
+    linkPage.sourceCategoryChartOption.xAxis.data = json.sourceCategories.category;
+    linkPage.sourceCategoryChartOption.series[0].data = json.sourceCategories.values;
+    linkPage.sourceCategoryBarChart.setOption(linkPage.sourceCategoryChartOption);
+
+}
