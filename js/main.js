@@ -3,53 +3,57 @@
  */
 
 var mainPage = {
-    myChart: echarts.init(document.getElementById('session-timeline')),
 
-    option: {
-        tooltip: {
+    sessionLineChart : echarts.init(document.getElementById('session-timeline')),
+
+    sessionLineOption : {
+        tooltip : {
             trigger: 'axis'
         },
         toolbox: {
-            show: true,
-            feature: {
-                restore: {show: true}
+            show : true,
+            feature : {
+                mark : {show: true},
+                magicType : {show: true, type: ['line', 'bar']},
+                restore : {show: true}
             }
         },
-        calculable: true,
-        xAxis: [
+        calculable : true,
+        xAxis : [
             {
-                type: 'hour',
-                boundaryGap: false,
-                data:[]
+                type : 'category',
+                boundaryGap : false,
+                data : []
             }
         ],
-        yAxis: [
+        yAxis : [
             {
-                type: 'value',
-                axisLabel: {
+                type : 'value',
+                axisLabel : {
                     formatter: '{value}'
                 }
             }
         ],
-        series: [
+        series : [
             {
-                name: 'sessions',
-                type: 'line',
-                data: [],
-                markPoint: {
-                    data: [
-                        {type: 'max', name: '最大值'},
-                        {type: 'min', name: '最小值'}
+                name:'sessions',
+                type:'line',
+                data:[],
+                markPoint : {
+                    data : [
+                        {type : 'max', name: 'Max'},
+                        {type : 'min', name: 'Min'}
                     ]
                 },
-                markLine: {
-                    data: [
-                        {type: 'average', name: '平均值'}
+                markLine : {
+                    data : [
+                        {type : 'average', name: '平均值'}
                     ]
                 }
             }
         ]
     }
+
 };
 
 $.getJSON('./data/site-overview.json', function (json) {
@@ -61,9 +65,9 @@ $.getJSON('./data/site-overview.json', function (json) {
     setOverviewTable('#top-pages', json.topActivePages);
     setKeywordCloud(json.topKeywords);
 
-    mainPage.option.xAxis[0].data = json.sessionTrends.hour;
-    mainPage.option.series[0].data = json.sessionTrends.dup;
-    mainPage.myChart.setOption(mainPage.option);
+    mainPage.sessionLineOption.xAxis[0].data = json.sessionTrends.hour;
+    mainPage.sessionLineOption.series[0].data = json.sessionTrends.dup;
+    mainPage.sessionLineChart.setOption(mainPage.sessionLineOption);
 
 });
 

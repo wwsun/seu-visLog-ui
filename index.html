@@ -131,7 +131,7 @@
                                 <a href="flot.html">入站流量分析</a>
                             </li>
                             <li>
-                                <a href="morris.html">出战流量分析</a>
+                                <a href="morris.html">站内流量分析</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -216,7 +216,7 @@
                 </h3>
             </div>
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <div class="child-panel">
                         <div id="session-total">
                             <h3>Sessions</h3>
@@ -229,9 +229,9 @@
                 </div>
                 <!-- /.col-lg-4 -->
 
-                <div class="col-lg-8">
+                <div class="col-lg-9">
                     <div class="panel panel-default">
-                        <div class="panel-heading">最近12小时的会话访问</div>
+                        <div class="panel-heading">各时段会话个数</div>
                         <div class="panel-body child-panel" id="session-timeline">
                         </div>
                     </div>
@@ -239,6 +239,35 @@
 
             </div>
             <!-- /.row -->
+
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">Top Search Engine Traffic</div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Search Engine</th>
+                                <th>Contribution</th>
+                            </tr>
+                            </thead>
+                            <tbody id="top-engines"></tbody>
+                        </table>
+                    </div>
+                    <!-- dataset overview -->
+                </div>
+
+                <div class="col-lg-8">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">Top Keywords</div>
+                        <div class="panel-body">
+                            <canvas id="word_cloud" height="370" width="680"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
 
             <div class="row">
                 <div class="col-lg-4">
@@ -257,22 +286,7 @@
                     </div>
                     <!-- 局部路径图 -->
                 </div>
-                <div class="col-lg-4">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">Top Search Engine Traffic</div>
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Search Engine</th>
-                                <th>Contribution</th>
-                            </tr>
-                            </thead>
-                            <tbody id="top-engines"></tbody>
-                        </table>
-                    </div>
-                    <!-- dataset overview -->
-                </div>
+
                 <div class="col-lg-4">
                     <div class="panel panel-info">
                         <div class="panel-heading">Top Active Pages</div>
@@ -289,18 +303,8 @@
                     </div>
                     <!-- dataset overview -->
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">Top Keywords</div>
-                        <div class="panel-body">
-                            <canvas id="word_cloud" height="350" class="col-md-12"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             <i class="fa fa-bar-chart-o fa-fw"></i> Area Chart Example
