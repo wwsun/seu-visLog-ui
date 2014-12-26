@@ -10,76 +10,94 @@ var linkPage = {
     sourceCategoryBarChart : echarts.init(document.getElementById('landing-source')),
 
     overviewForceOption : {
-        title: {
-            text: '页面链接关系',
-            subtext: '测试数据，仅供演示',
-            x: 'right',
-            y: 'bottom'
-        },
         tooltip: {
             trigger: 'item',
-            formatter: '{a} : {b}'
+            formatter: '{b}'
         },
         toolbox: {
             show: true,
             feature: {
                 restore: {show: true},
-                magicType: {show: true, type: ['force', 'chord']},
+                magicType: {
+                    show: true,
+                    type: ['force', 'chord'],
+                    option: {
+                    chord: {
+                        minRadius : 2,
+                        maxRadius : 10,
+                        ribbonType: false,
+                        itemStyle: {
+                            normal: {
+                                label: {
+                                    show: true,
+                                    rotate: true
+                                },
+                                chordStyle: {
+                                    opacity: 0.2
+                                }
+                            }
+                        }
+                    },
+                    force: {
+                        minRadius : 5,
+                        maxRadius : 8,
+                        itemStyle : {
+                            normal : {
+                                label: {
+                                    show: false
+                                },
+                                linkStyle : {
+                                    opacity : 0.5
+                                }
+                            }
+                        }
+                    }
+                }},
                 saveAsImage: {show: true}
             }
         },
         legend: {
             x: 'left',
-            data: ['站内', '站外']
+            data: ['in-site', 'out-site'],
+            orient: 'vertical'
         },
         series: [
             {
                 type: 'force',
-                name: "链接关系",
+                //name: "Link relations",
                 ribbonType: false,
                 categories: [
                     {
-                        name: '站点'
+                        name: 'in-site'
                     },
                     {
-                        name: '站内'
-                    },
-                    {
-                        name: '站外'
+                        name: 'out-site'
                     }
                 ],
                 itemStyle: {
                     normal: {
-                        label: {
-                            show: true,
-                            textStyle: {
-                                color: '#333'
-                            }
-                        },
                         nodeStyle: {
-                            brushType: 'both',
-                            borderColor: 'rgba(255,215,0,0.6)',
-                            borderWidth: 1
+                            brushType : 'both',
+                            borderColor : 'rgba(255,215,0,0.4)',
+                            borderWidth : 1
+                        },
+                        linkStyle: {
+                            type: 'curve'
                         }
-                    },
-                    emphasis: {
-                        label: {
-                            show: false
-                            // textStyle: null      // 默认使用全局文本样式，详见TEXTSTYLE
-                        },
-                        nodeStyle: {
-                            //r: 30
-                        },
-                        linkStyle: {}
                     }
                 },
-                useWorker: false,
-                minRadius: 15,
-                maxRadius: 25,
-                gravity: 1.1,
-                scaling: 1.1,
-                nodes: [],
-                links: []
+                minRadius : 2,
+                maxRadius : 10,
+                coolDown: 0.995,
+                steps: 10,
+                nodes : [],
+                links : [],
+                //gravity: 1.1,
+                //scaling: 1.1,
+                //roam: 'move',
+                //steps: 1,
+                large: true,
+                useWorker: true
             }
         ]
     },
@@ -184,13 +202,13 @@ var linkPage = {
 
 };
 
-$.getJSON('./data/demo.json', function (json) {
+$.getJSON('./data/overview-graph-1.json', function (json) {
 
     linkPage.overviewForceOption.series[0].nodes = json.nodes;
     linkPage.overviewForceOption.series[0].links = json.links;
 
     linkPage.overviewForceChart.setOption(linkPage.overviewForceOption);
-    linkPage.subForceChart.setOption(linkPage.overviewForceOption);
+    linkPage.subForceChart.setOption(linkPage.subForceChartOption);
     //linkPage.visitLineChart.setOption(linkPage.visitLineOption);
     //linkPage.sourceCategoryBarChart.setOption(linkPage.sourceCategoryChartOption);
 

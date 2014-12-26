@@ -22,7 +22,7 @@ var loadForce = function(sourceFile){
 
         var edges = svg.selectAll("line").data(dataset.links).enter().append("line").style("stroke","#ccc")
             .style("stroke-width", function (d) {
-                return d.value;
+                return 3;
             });
 
         var nodes = svg.selectAll("circle")
@@ -33,7 +33,7 @@ var loadForce = function(sourceFile){
                 return 7;
             })
             .style("fill", function(d){
-                return vl_force.colors(d.group);
+                return vl_force.colors(d.category);
             })
             .call(force.drag);
 
@@ -42,8 +42,9 @@ var loadForce = function(sourceFile){
         });
 
         edges.append("title").text(function (d) {
-            return d.value;
+            return d.source + "-->" + d.target;
         });
+
 
         force.on("tick", function(){
             edges.attr("x1", function (d) {
@@ -58,9 +59,10 @@ var loadForce = function(sourceFile){
                 .attr("y2", function (d) {
                     return d.target.y;
                 });
+
             nodes.attr("cx", function (d) {
                 return d.x;
-            })
+                })
                 .attr("cy", function (d) {
                     return d.y;
                 });

@@ -3,10 +3,13 @@ css/
 font-awesome-4.1.0/
 fonts/
 js/plugins/
+js/chart/
+
 less/
 
 js/bootstrap.js
 js/bootstrap.min.js
 js/echarts-all.js
+js/echarts.js
 js/sb-admin-2.js
 js/jquery.js
