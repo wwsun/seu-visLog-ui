@@ -2,7 +2,7 @@
  * Created by Weiwei on 10/8/2014.
  */
 
-var width = 1100;
+var width = 600;
 var height = 700;
 
 var colors = d3.scale.category20();

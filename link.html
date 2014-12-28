@@ -14,6 +14,8 @@
     <!-- MetisMenu CSS -->
     <link href="css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
 
+    <link href="css/plugins/dataTables.bootstrap.css" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link href="css/sb-admin-2.css" rel="stylesheet">
 
@@ -216,54 +218,42 @@
                     <small>www.made-in-china.com</small>
                 </h3>
             </div>
+
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default" style="margin-top: 1em">
+                <div class="col-lg-3">
+                    <div class="child-panel">
+                        <div id="session-total">
+                            <h3>Nodes</h3>
+                            <h1 id="node-count">0</h1>
 
-                        <div id="svg-wrapper" class="panel-body table-content">
-
+                            <h3>Links</h3>
+                            <h1 id="link-count">0</h1>
                         </div>
-                        <!-- /.svg-wrapper -->
                     </div>
                 </div>
+                <div id="main" class="col-lg-9"></div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
 
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                     <div class="panel panel-primary">
-                        <div class="panel-heading">Subgraph</div>
-                        <div class="panel-body child-panel" id="path-detail">
+                        <div class="panel-heading" id="selected-node-name">Main sources</div>
+                        <!--<div class="panel-body child-panel" id="path-detail">-->
+                        <div class="panel-body child-panel" id="landing-source">
                         </div>
                     </div>
-                    <!-- 局部路径图 -->
+
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                     <div class="panel panel-info">
-                        <div class="panel-heading">Context</div>
-                        <table class="table table-bordered">
-                            <tbody>
-                            <tr>
-                                <td><strong>Nodes</strong></td>
-                                <td>20</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Links</strong></td>
-                                <td>30</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Type</strong></td>
-                                <td>Directed</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                        <div class="panel-heading">Degree</div>
+                        <div class="panel-body child-panel" id="degree-pie">
+
+                        </div>
                     </div>
                     <!-- dataset overview -->
-
-                    <div id="degree-pie">
-                        <!--inDegree and outDegree-->
-                    </div>
                 </div>
             </div>
 
@@ -271,54 +261,45 @@
                 <div class="col-lg-6">
                     <div class="panel panel-info">
                         <div class="panel-heading">Main referrals of the selected node</div>
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>URL</th>
-                                <th>Dups</th>
-                            </tr>
-                            </thead>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="ref-table">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>URL</th>
+                                        <th>Dups</th>
+                                    </tr>
+                                    </thead>
 
-                            <tbody id="node-referrals"></tbody>
-                        </table>
+                                    <tbody id="node-referrals"></tbody>
+                                </table>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-lg-6">
                     <div class="panel panel-info">
                         <div class="panel-heading">Main targets of the selected node</div>
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>URL</th>
-                                <th>Dups</th>
-                            </tr>
-                            </thead>
-                            <tbody id="node-targets"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">Visited trends of the least 12 hours</div>
-                        <div class="panel-body child-panel" id="visit-flow">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">Main Sources</div>
-                        <div class="panel-body child-panel" id="landing-source">
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="req-table">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>URL</th>
+                                        <th>Dups</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="node-targets"></tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
         <!-- /.container-fluid -->
     </div>
@@ -333,6 +314,13 @@
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 
+
+<script src="js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+<!-- D3 core javascript -->
+<script src="js/d3/d3.min.js"></script>
+
 <!-- ECharts Core JavaScript -->
 <script src="js/echarts-all.js"></script>
 
@@ -345,8 +333,9 @@
 <!--HightCharts JavaScript-->
 <!--<script src="js/plugins/highcharts/highcharts.js"></script>-->
 
-
 <script src="js/pages/link.js"></script>
+<!--<script src="js/vislog/vislog-force.js"></script>-->
+
 
 </body>
 

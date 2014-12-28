@@ -3,10 +3,10 @@
  */
 
 var linkPage = {
-    overviewForceChart : echarts.init(document.getElementById('svg-wrapper')),
-    subForceChart : echarts.init(document.getElementById('path-detail')),
+    //overviewForceChart : echarts.init(document.getElementById('svg-wrapper')),
+    //subForceChart : echarts.init(document.getElementById('path-detail')),
     degreePieChart : echarts.init(document.getElementById('degree-pie')),
-    visitLineChart : echarts.init(document.getElementById('visit-flow')),
+    //visitLineChart : echarts.init(document.getElementById('visit-flow')),
     sourceCategoryBarChart : echarts.init(document.getElementById('landing-source')),
 
     overviewForceOption : {
@@ -197,75 +197,79 @@ var linkPage = {
                 }
             }
         ]
+    },
+
+    degreePieChartOption: {
+        toolbox: {
+            show : true,
+            feature : {
+                magicType : {
+                    show: true,
+                    type: ['pie', 'funnel'],
+                    option: {
+                        funnel: {
+                            x: '25%',
+                            width: '50%',
+                            funnelAlign: 'center',
+                            max: 1548
+                        }
+                    }
+                },
+                restore : {show: true}
+            }
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient : 'vertical',
+            x : 'left',
+            data:['in','out']
+        },
+        calculable : true,
+        series : [
+            {
+                name:'访问来源',
+                type:'pie',
+                radius : ['45%', '70%'],
+                itemStyle : {
+                    normal : {
+                        label : {
+                            show : false
+                        },
+                        labelLine : {
+                            show : false
+                        }
+                    },
+                    emphasis : {
+                        label : {
+                            show : true,
+                            position : 'center',
+                            textStyle : {
+                                fontSize : '30',
+                                fontWeight : 'bold'
+                            }
+                        }
+                    }
+                }
+            }
+        ]
     }
-
-
 };
 
-$.getJSON('./data/overview-graph-1.json', function (json) {
+//$.getJSON('./data/overview-graph-1.json', function (json) {
 
-    linkPage.overviewForceOption.series[0].nodes = json.nodes;
-    linkPage.overviewForceOption.series[0].links = json.links;
+    //linkPage.overviewForceOption.series[0].nodes = json.nodes;
+    //linkPage.overviewForceOption.series[0].links = json.links;
 
-    linkPage.overviewForceChart.setOption(linkPage.overviewForceOption);
-    linkPage.subForceChart.setOption(linkPage.subForceChartOption);
+    //linkPage.overviewForceChart.setOption(linkPage.overviewForceOption);
+    //linkPage.subForceChart.setOption(linkPage.subForceChartOption);
     //linkPage.visitLineChart.setOption(linkPage.visitLineOption);
     //linkPage.sourceCategoryBarChart.setOption(linkPage.sourceCategoryChartOption);
 
-    linkPage.subForceChart.on(echarts.config.EVENT.CLICK, focus);
-});
-
-function setDegreePie(data) {
-    $('#degree-pie').highcharts({
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: 0,
-            plotShadow: false,
-            spacing: [0, 10, 0, 10]
-        },
-        credits : {
-            enabled: false
-        },
-        exporting: {
-            enabled: false
-        },
-        title: {
-            text: 'Degree',
-            align: 'center',
-            verticalAlign: 'middle',
-            y: 50
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                dataLabels: {
-                    enabled: true,
-                    distance: -50,
-                    style: {
-                        fontWeight: 'bold',
-                        color: 'white',
-                        textShadow: '0px 1px 2px black'
-                    }
-                },
-                startAngle: -90,
-                endAngle: 90,
-                center: ['50%', '75%']
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: 'Degree',
-            innerSize: '50%',
-            data: [
-                ['In',   data.in],
-                ['Out',  data.out]
-
-            ]
-        }]
-    });
-}
+    //linkPage.subForceChart.on(echarts.config.EVENT.CLICK, focus);
+//});
 
 function focus(param) {
     var data = param.data;
@@ -281,6 +285,90 @@ function focus(param) {
 
 }
 
+var loadForce = function(sourceFile){
+
+    //parameters of force graph and init
+    var vl_force = {
+        width: 800,
+        height: 500,
+        colors: d3.scale.category20()
+    };
+
+    d3.json(sourceFile, function(dataset) {
+
+        $('#node-count').html(dataset.nodes.length);
+        $('#link-count').html(dataset.links.length);
+
+        var force = d3.layout.force().size([vl_force.width, vl_force.height]).linkDistance([70]).charge([-100]);
+
+        force.nodes(dataset.nodes).links(dataset.links).start();
+
+        var svg = d3.select("#main").append("svg").attr("width", vl_force.width).attr("height",vl_force.height)
+            .attr("id","force-svg");
+
+        var edges = svg.selectAll("line").
+            data(dataset.links).
+            enter().
+            append("line")
+            .attr("class", "link")
+            .style("stroke","#ccc")
+            .style("stroke-width", function (d) {
+                return 3;
+            });
+
+        var nodes = svg.selectAll("circle")
+            .data(dataset.nodes)
+            .enter()
+            .append("circle")
+            .attr("class", "node")
+            .attr("r", function(d){
+                return 7;
+            })
+            .style("fill", function(d){
+                return vl_force.colors(d.category);
+            })
+            .call(force.drag);
+
+        nodes.append("title").text(function (d) {
+            return d.name;
+        });
+
+        edges.append("title").text(function (d) {
+            return d.source + "-->" + d.target;
+        });
+
+
+        force.on("tick", function(){
+            edges.attr("x1", function (d) {
+                return d.source.x;
+                })
+                .attr("y1", function (d) {
+                    return d.source.y;
+                })
+                .attr("x2", function (d) {
+                    return d.target.x;
+                })
+                .attr("y2", function (d) {
+                    return d.target.y;
+                });
+
+            nodes.attr("cx", function (d) {
+                return d.x;
+                })
+                .attr("cy", function (d) {
+                    return d.y;
+                });
+        });
+
+        nodes.on("click", function (node) {
+            console.log("Node " + node.name +" is clicked!");
+            queryDB(node.name);
+        })
+
+    });
+};
+
+loadForce('data/overview-graph-d3.json');
 
 /**
  *
@@ -289,15 +377,14 @@ function focus(param) {
 function queryDB(name) {
 
     //operation logic to query the database
-
+    $('#selected-node-name').html(name);
     //processing the response result
-    $.getJSON('./data/node-detail.json', function (json) {
+    $.getJSON('./data/node-detail-2.json', function (json) {
         if(json[name]) {
             updateCharts(json[name]);
         } else {
-            alert("Unfortunately, nothing returned about this node!");
+            alert("Nothing returned of node: "+name);
         }
-
     });
 }
 
@@ -309,23 +396,30 @@ function updateCharts (json) {
     var refs = json.topReferrals;
     $('#node-referrals tr').remove(); //remove the old data
     for(var i=0; i< refs.length; i++) {
-        $("#node-referrals").append('<tr><td>'+i+'</td><td>'+refs[i].name+'</td><td>'+refs[i].dup+'</td></tr>');
+        $("#node-referrals").append('<tr><td>'+i+'</td><td>'+refs[i].referer+'</td><td>'+refs[i].sum+'</td></tr>');
     }
+
+    $('#ref-table').dataTable();
 
     //3.update main targets
     var targets = json.topTargets;
     $('#node-targets tr').remove(); //remove the old data
     for(var j=0; j<targets.length; j++) {
-        $('#node-targets').append('<tr><td>'+j+'</td><td>'+targets[j].name+'</td><td>'+targets[j].dup+'</td></tr>');
+        $('#node-targets').append('<tr><td>'+j+'</td><td>'+targets[j].request+'</td><td>'+targets[j].sum+'</td></tr>');
     }
 
+    $('#req-table').dataTable();
+
     //4.update visited trends
-    linkPage.visitLineOption.series[0].data = json.visitTrend;
-    linkPage.visitLineChart.setOption(linkPage.visitLineOption);
+    //linkPage.visitLineOption.series[0].data = json.visitTrend;
+    //linkPage.visitLineChart.setOption(linkPage.visitLineOption);
 
     //5.update main sources
     linkPage.sourceCategoryChartOption.xAxis[0].data = json.sourceCategories.category;
     linkPage.sourceCategoryChartOption.series[0].data = json.sourceCategories.values;
+
+    linkPage.degreePieChartOption.series[0].data = [{value:json.degree.in, name:'in'},{value:json.degree.out, name:'out'}];
+    linkPage.degreePieChart.setOption(linkPage.degreePieChartOption);
     linkPage.sourceCategoryBarChart.setOption(linkPage.sourceCategoryChartOption);
 
 }

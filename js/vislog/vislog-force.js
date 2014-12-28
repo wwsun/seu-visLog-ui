@@ -7,17 +7,17 @@ var loadForce = function(sourceFile){
     //parameters of force graph and init
     var vl_force = {
         width: 1000,
-        height: 700,
+        height: 500,
         colors: d3.scale.category20()
     };
 
     d3.json(sourceFile, function(dataset) {
 
-        var force = d3.layout.force().size([this.width,this.height]).linkDistance([100]).charge([-100])
+        var force = d3.layout.force().size([this.width,this.height]).linkDistance([100]).charge([-100]);
 
         force.nodes(dataset.nodes).links(dataset.links).start();
 
-        var svg = d3.select("#svg-wrapper").append("svg").attr("width", vl_force.width).attr("height",vl_force.height)
+        var svg = d3.select("#main").append("svg").attr("width", vl_force.width).attr("height",vl_force.height)
             .attr("id","force-svg");
 
         var edges = svg.selectAll("line").data(dataset.links).enter().append("line").style("stroke","#ccc")
@@ -48,7 +48,7 @@ var loadForce = function(sourceFile){
 
         force.on("tick", function(){
             edges.attr("x1", function (d) {
-                return d.source.x;
+                    return d.source.x;
                 })
                 .attr("y1", function (d) {
                     return d.source.y;
@@ -61,12 +61,19 @@ var loadForce = function(sourceFile){
                 });
 
             nodes.attr("cx", function (d) {
-                return d.x;
+                    return d.x;
                 })
                 .attr("cy", function (d) {
                     return d.y;
                 });
         });
 
+        nodes.on("click", function (node) {
+            console.log("Node " + node.name +" is clicked!");
+            queryDB(node.name);
+        })
+
     });
 };
+
+loadForce('data/overview-graph-d3.json');
