@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Link Analysis - VisLog</title>
+    <title>Flow Analysis - VisLog</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -107,12 +107,12 @@
                         <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Overview</a>
                     </li>
 
-                    <li class="active">
+                    <li>
                         <a href="index.html"><i class="fa fa-sitemap fa-fw"></i> Link Analysis<span
                                 class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="link.html" class="active">整站链接分析</a>
+                                <a href="link.html">整站链接分析</a>
                             </li>
                             <li>
                                 <a href="#">站外链接分析</a>
@@ -126,18 +126,18 @@
                     </li>
 
 
-                    <li>
+                    <li class="active">
                         <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Flow Analysis<span
                                 class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="flow.html">全站流量分析</a>
+                                <a href="flow.html" class="active">全站流量分析</a>
                             </li>
                             <li>
-                                <a href="flow.html">入站流量分析</a>
+                                <a href="#">入站流量分析</a>
                             </li>
                             <li>
-                                <a href="morris.html">站内流量分析</a>
+                                <a href="#">站内流量分析</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -150,7 +150,7 @@
                                 <a href="blank.html">指标分析</a>
                             </li>
                             <li>
-                                <a href="login.html">Login Page</a>
+                                <a href="login.html">统计量定义</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -217,92 +217,30 @@
     <div id="page-wrapper">
         <div class="container-fluid">
             <div class="page-header">
-                <h3>Link Analysis
+                <h3>Flow Analysis
                     <small>www.made-in-china.com</small>
                 </h3>
             </div>
 
             <div class="row">
-                <div class="col-lg-3">
-                    <div class="child-panel">
-                        <div id="session-total">
-                            <h3>Nodes</h3>
-                            <h1 id="node-count">0</h1>
+                <!--<div class="col-lg-3">-->
+                    <!--<div class="child-panel">-->
+                        <!--<div id="session-total">-->
+                            <!--<h3>Nodes</h3>-->
+                            <!--<h1 id="node-count">0</h1>-->
 
-                            <h3>Links</h3>
-                            <h1 id="link-count">0</h1>
-                        </div>
-                    </div>
+                            <!--<h3>Links</h3>-->
+                            <!--<h1 id="link-count">0</h1>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div id="main" class="col-lg-12" style="height: 530px">
+
                 </div>
-                <div id="main" class="col-lg-9"></div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
 
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading" id="selected-node-name">Main sources</div>
-                        <!--<div class="panel-body child-panel" id="path-detail">-->
-                        <div class="panel-body child-panel" id="landing-source">
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-6">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">Degree</div>
-                        <div class="panel-body child-panel" id="degree-pie">
-
-                        </div>
-                    </div>
-                    <!-- dataset overview -->
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">Main referrals of the selected node</div>
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="ref-table">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>URL</th>
-                                        <th>Dups</th>
-                                    </tr>
-                                    </thead>
-
-                                    <tbody id="node-referrals"></tbody>
-                                </table>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">Main targets of the selected node</div>
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="req-table">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>URL</th>
-                                        <th>Dups</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="node-targets"></tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
         <!-- /.container-fluid -->
     </div>
@@ -317,13 +255,6 @@
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 
-
-<script src="js/plugins/dataTables/jquery.dataTables.js"></script>
-<script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
-
-<!-- D3 core javascript -->
-<script src="js/d3/d3.min.js"></script>
-
 <!-- ECharts Core JavaScript -->
 <script src="js/echarts-all.js"></script>
 
@@ -333,10 +264,7 @@
 <!-- Custom Theme JavaScript -->
 <script src="js/sb-admin-2.js"></script>
 
-<!--HightCharts JavaScript-->
-<!--<script src="js/plugins/highcharts/highcharts.js"></script>-->
-
-<script src="js/pages/link.js"></script>
+<script src="js/pages/flow.js"></script>
 <!--<script src="js/vislog/vislog-force.js"></script>-->
 
 
