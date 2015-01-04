@@ -58,7 +58,7 @@ var mainPage = {
 
 $.getJSON('./data/site-overview.json', function (json) {
 
-    $('#session-total h1').html(json.totalSessions);
+    $('#session-sum').html(json.totalSessions);
 
     setOverviewTable('#top-referrals', json.topReferral);
     setOverviewTable('#top-engines', json.topSearchEngine);
